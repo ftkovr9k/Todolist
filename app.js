@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const PORT = process.env.PORT || 3000;
 const mongoose = require("mongoose");
+require('dotenv').config()
 mongoose.set("strictQuery", false);
 
 // main().catch(err => console.log(err));
