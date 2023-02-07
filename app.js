@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const PORT = process.env.PORT || 3000;
 const mongoose = require("mongoose");
-// require('dotenv').config();
+const dotenv = require('dotenv')
+dotenv.config({path: __dirname + '/.env'})
 mongoose.set("strictQuery", false);
 
 // main().catch(err => console.log(err));
@@ -16,8 +17,9 @@ mongoose.set("strictQuery", false);
 
 const connectDB = async () => {
   try{
-    const conn = await mongoose.connect("mongodb+srv://ftkovr9k:RagingDemon667@cluster0.znsg1if.mongodb.net/todolistDB");
+    const conn = await mongoose.connect("mongodb+srv://ftk:samplepass123@cluster0.znsg1if.mongodb.net/todolistDB");
     //const conn = mongoose.connect("mongodb+srv://"+process.env.ADMIN_NAME +":"+process.env.ADMIN_PASS+"@cluster0.znsg1if.mongodb.net/todolistDB", {useNewUrlParser: true});
+    //const conn = mongoose.connect("mongodb+srv://"+process.env.ADMIN_NAME +":"+process.ADMIN_PASS+"@cluster0.znsg1if.mongodb.net/todolistDB", {useNewUrlParser: true});
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(error);
