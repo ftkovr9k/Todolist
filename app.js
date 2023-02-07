@@ -3,14 +3,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
-
+const PORT = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-main().catch(err => console.log(err));
-async function main() {
-  // await mongoose.connect("mongodb://0.0.0.0:27017/todolistDB");
-  await mongoose.connect("mongodb+srv://ftkovr9k:RagingDemon667@cluster0.znsg1if.mongodb.net/todolistDB");
+// main().catch(err => console.log(err));
+// async function main() {
+//   // await mongoose.connect("mongodb://0.0.0.0:27017/todolistDB");
+//   await mongoose.connect("mongodb+srv://ftkovr9k:RagingDemon667@cluster0.znsg1if.mongodb.net/todolistDB");
+// }
+
+const connectDB = async () => {
+  try{
+    const conn = await mongoose.connect("mongodb+srv://ftkovr9k:RagingDemon667@cluster0.znsg1if.mongodb.net/todolistDB");
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
 }
 
 const itemSchema = new mongoose.Schema({ name: String });
@@ -144,5 +154,10 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen(process.env.PORT || 3000, function () {
+connectDB().then(() =>{
+  app.listen(PORT, function () {
+    console.log("listening for requests")
+  });
+  
 });
+
